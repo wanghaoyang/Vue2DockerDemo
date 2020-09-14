@@ -14,7 +14,6 @@ spec:
       app: vue-sample-dev
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: vue-sample-dev
     spec:
