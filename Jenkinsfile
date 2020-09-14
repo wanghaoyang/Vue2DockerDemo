@@ -21,9 +21,6 @@ pipeline {
           }
 
           sh 'docker image prune -f'
-          sh 'echo "branch: ${env.BRANCH_NAME}"'
-          sh 'echo "current SHA: ${env.GIT_COMMIT}"'
-          sh 'echo "previous SHA: ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"script'
         }
 
       }
