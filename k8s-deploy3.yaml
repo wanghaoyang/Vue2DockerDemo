@@ -54,7 +54,7 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 32393
+      nodePort: 324393
   selector:
     app: vue-sample-dev
   type: NodePort
