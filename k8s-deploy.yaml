@@ -21,10 +21,10 @@ spec:
       containers:
         # 容器名称
         - name: vue-sample-dev
-          image: $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:latest
+          image: $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:latest
           ports:
-            - name: tcp-8080
-              containerPort: 8080
+            - name: tcp-80
+              containerPort: 80
               protocol: TCP
           resources:
             limits:
@@ -73,9 +73,9 @@ spec:
       #    kubernetes中的服务之间访问的端口，尽管mysql容器暴露了3306端口（参考https://github.com/docker-library/mysql/的DockerFile），但是集群内其他容器需要通过33306端口访问该服务，外部机器不能访问mysql服务，因为他没有配置NodePort类型
 
       # 服务端口, service封装多个pod, 暴漏端口
-      port: 8080
+      port: 80
       # 容器端口
-      targetPort: 8080
+      targetPort: 80
       # 节点端口, 供外部访问, 不能一样
       # 默认范围: 30000 - 32767
       # nodePort: 32001
