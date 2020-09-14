@@ -20,7 +20,6 @@ pipeline {
             sh 'docker push  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER'
           }
 
-          sh 'docker image prune -f'
         }
 
       }
