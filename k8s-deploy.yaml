@@ -20,7 +20,7 @@ spec:
       containers:
         # 容器名称
         - name: vue-sample-dev
-          image: $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:$PROJECT_VERSION
+          image: $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER
           ports:
             - name: tcp-80
               containerPort: 80
