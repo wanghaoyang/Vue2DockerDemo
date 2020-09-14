@@ -60,7 +60,7 @@ pipeline {
             sh 'git config --global user.email "myemail@mxmx.com" '
             sh 'git config --global user.name "myname" '
             sh 'git tag -a $PROJECT_VERSION -m "$PROJECT_VERSION" '
-            sh 'git push https://$GIT_USERNAME:$GIT_PASSWORD@github.com/$GITHUB_ACCOUNT/devops-vue-sample.git --tags --ipv4'
+            sh 'git push https://$GIT_USERNAME:$GIT_PASSWORD@github.com/$GITHUB_ACCOUNT/Vue2DockerDemo.git --tags --ipv4'
           }
 
           sh 'docker tag  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:$PROJECT_VERSION '
