@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      label 'maven'
+      label 'nodejs'
     }
   }
 
@@ -29,7 +29,7 @@ pipeline {
 
         stage ('build & push') {
             steps {
-                container ('maven') {
+                container ('nodejs') {
                     sh 'docker build -f dockerfile -t $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER .'
                     withCredentials([usernamePassword(passwordVariable : 'DOCKER_PASSWORD' ,usernameVariable : 'DOCKER_USERNAME' ,credentialsId : "$DOCKER_CREDENTIAL_ID" ,)]) {
                         sh 'echo "$DOCKER_PASSWORD" | docker login $REGISTRY -u "$DOCKER_USERNAME" --password-stdin'
@@ -67,7 +67,7 @@ pipeline {
             }
           }
           steps {
-              container ('maven') {
+              container ('nodejs') {
                 input(id: 'release-image-with-tag', message: 'release image with tag?')
                   withCredentials([usernamePassword(credentialsId: "$GITHUB_CREDENTIAL_ID", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh 'git config --global user.email "kubesphere@yunify.com" '
