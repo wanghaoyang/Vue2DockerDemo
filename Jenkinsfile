@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('拉取代码') {
       steps {
-        git(url: 'https://github.com/wanghaoyang/Vue2DockerDemo.git', credentialsId: 'github-id', branch: 'master', changelog: true, poll: false)
+        git(url: 'https://github.com/wanghaoyang/Vue2DockerDemo.git', credentialsId: "$GITHUB_CREDENTIAL_ID", branch: 'master', changelog: true, poll: false)
       }
     }
     stage('构建镜像 & 推送快照镜像') {
@@ -43,7 +43,7 @@ pipeline {
       }
       steps {
         input(message: "deploy $PROJECT_NAME to dev?", submitter: '')
-        kubernetesDeploy(enableConfigSubstitution: true, deleteResource: false, kubeconfigId: '$KUBECONFIG_CREDENTIAL_ID', configs: 'k8s-deploy.yaml')
+        kubernetesDeploy(enableConfigSubstitution: true, deleteResource: false, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID", configs: 'k8s-deploy.yaml')
       }
     }
     stage('发布版本') {
@@ -56,7 +56,7 @@ pipeline {
       steps {
         container('maven') {
           input(message: 'release $PROJECT_NAME image with version?', submitter: '')
-          withCredentials([usernamePassword(credentialsId : '$GITHUB_CREDENTIAL_ID' ,passwordVariable : 'GIT_PASSWORD' ,usernameVariable : 'GIT_USERNAME' ,)]) {
+          withCredentials([usernamePassword(credentialsId : "$GITHUB_CREDENTIAL_ID" ,passwordVariable : 'GIT_PASSWORD' ,usernameVariable : 'GIT_USERNAME' ,)]) {
             sh 'git config --global user.email "myemail@mxmx.com" '
             sh 'git config --global user.name "myname" '
             sh 'git tag -a $PROJECT_VERSION -m "$PROJECT_VERSION" '
@@ -78,7 +78,7 @@ pipeline {
       }
       steps {
         input(message: "deploy $PROJECT_NAME to production?", submitter: '')
-        kubernetesDeploy(enableConfigSubstitution: true, deleteResource: false, kubeconfigId: '$KUBECONFIG_CREDENTIAL_ID', configs: 'deploy/prod-ol/**')
+        kubernetesDeploy(enableConfigSubstitution: true, deleteResource: false, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID", configs: 'deploy/prod-ol/**')
       }
     }
   }
