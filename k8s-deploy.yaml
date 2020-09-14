@@ -61,7 +61,6 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      
       # 1. nodePort
       #    外部机器可访问的端口。
       #    比如一个Web应用需要被其他用户访问，那么需要配置type=NodePort，而且配置nodePort=30001，那么其他机器就可以通过浏览器访问scheme://node:30001访问到该服务，例如http://node:30001。
@@ -71,7 +70,6 @@ spec:
       #    docker.io官方的nginx容器的DockerFile参考https://github.com/nginxinc/docker-nginx
       # 3. port
       #    kubernetes中的服务之间访问的端口，尽管mysql容器暴露了3306端口（参考https://github.com/docker-library/mysql/的DockerFile），但是集群内其他容器需要通过33306端口访问该服务，外部机器不能访问mysql服务，因为他没有配置NodePort类型
-
       # 服务端口, service封装多个pod, 暴漏端口
       port: 80
       # 容器端口
