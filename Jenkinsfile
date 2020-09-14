@@ -37,8 +37,8 @@ pipeline {
 
       }
     }
-    
-    when {
+    stage('部署到 dev 环境') {
+      when {
         branch 'master'
       }
       steps {
