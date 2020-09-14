@@ -54,13 +54,13 @@ pipeline {
 
       }
       steps {
-        container('maven') {
+        container('nodejs') {
           input(message: "release $PROJECT_NAME image with version?", submitter: '')
           withCredentials([usernamePassword(credentialsId : "$GITHUB_CREDENTIAL_ID" ,passwordVariable : 'GIT_PASSWORD' ,usernameVariable : 'GIT_USERNAME' ,)]) {
             sh 'git config --global user.email "myemail@mxmx.com" '
             sh 'git config --global user.name "myname" '
             sh 'git tag -a $PROJECT_VERSION -m "$PROJECT_VERSION" '
-            sh 'git push https://$GIT_USERNAME:$GIT_PASSWORD@github.com/$GITHUB_ACCOUNT/devops-java-sample.git --tags --ipv4'
+            sh 'git push https://$GIT_USERNAME:$GIT_PASSWORD@github.com/$GITHUB_ACCOUNT/devops-vue-sample.git --tags --ipv4'
           }
 
           sh 'docker tag  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:$PROJECT_VERSION '
@@ -78,7 +78,7 @@ pipeline {
       }
       steps {
         input(message: "deploy $PROJECT_NAME to production?", submitter: '')
-        kubernetesDeploy(enableConfigSubstitution: true, deleteResource: false, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID", configs: 'deploy/prod-ol/**')
+        kubernetesDeploy(enableConfigSubstitution: true, deleteResource: false, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID", configs: 'k8s-deploy-prod.yaml')
       }
     }
   }
