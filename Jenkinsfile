@@ -55,7 +55,7 @@ pipeline {
       }
       steps {
         container('maven') {
-          input(message: 'release $PROJECT_NAME image with version?', submitter: '')
+          input(message: "release $PROJECT_NAME image with version?", submitter: '')
           withCredentials([usernamePassword(credentialsId : "$GITHUB_CREDENTIAL_ID" ,passwordVariable : 'GIT_PASSWORD' ,usernameVariable : 'GIT_USERNAME' ,)]) {
             sh 'git config --global user.email "myemail@mxmx.com" '
             sh 'git config --global user.name "myname" '
